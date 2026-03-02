@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" alt="LedgerCross Logo" width="200"/>
+</p>
+
 # Course Projects: Assignments & Capstone Submissions
 
 Welcome to the repository for all course-related submissions. Please follow the structure below to ensure your work is tracked and graded correctly.
