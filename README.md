@@ -1,37 +1,60 @@
-# Course Projects: Assignments & Capstone Submissions
+# TaskFlow API 🚀
 
-Welcome to the repository for all course-related submissions. Please follow the structure below to ensure your work is tracked and graded correctly.
+A foundational RESTful backend built with **.NET 10** and **ASP.NET Core**. This project serves as a robust headless API for a task management system, demonstrating core backend engineering principles and clean architecture.
 
----
+## 📖 Overview
 
-## 🚀 Submission Instructions
+TaskFlow API was developed to implement industry-standard backend patterns. It provides a complete set of CRUD operations to manage task lifecycles, utilizing an in-memory data store for rapid testing and iteration. 
 
-To keep the `main` branch clean, everyone must follow this workflow:
+This architecture is designed to be completely decoupled from the frontend, making it the perfect foundation for future integrations with modern client-side frameworks like Blazor.
 
-1. **Create a Branch:** Create a new branch named with your name.
-2. **Directory Structure:** Place your files in the appropriate folder using the following format:
-   - `[Course Name]/Assignments/[Assignment Name]`
-   - `[Course Name]/Capstone/[Project Name]`
-3. **Push** Push your branch to the remote repository.
+## ⚙️ Core Concepts Implemented
 
----
+This repository showcases the implementation of the following foundational engineering concepts:
+* **RESTful Architecture:** Clean API endpoints using Attribute Routing.
+* **Dependency Injection (DI):** Decoupled business logic utilizing `ITaskService`.
+* **Data Serialization:** Seamless JSON serialization and deserialization using standard .NET libraries.
+* **Middleware Pipeline:** * Implementation of built-in middleware for routing and authorization.
+  * Custom `RequestTimingMiddleware` to log the execution time of incoming HTTP requests.
+* **Error Handling & Logging:** Implementation of `ILogger` to track critical application events and gracefully handle missing resources (e.g., returning `404 Not Found`).
+* **Security & Validation:** Data annotations ensuring structural integrity and preventing malformed requests.
+* **OpenAPI Integration:** Auto-generated interactive documentation using Swagger UI.
 
-## 📝 Personal Branch README Template
-*Copy this into the README.md on your personal branch to help quickly navigate your work:*
-*Links provided here are for demo purposes only (Clicking on them will give 404)*
+## 🛠️ Tech Stack
 
-### [Your Name]'s Submissions Index
-| Submission Name | Course | Link to Files |
-| :--- | :--- | :--- |
-| Assignment 1 | Blockchain | [View Files](./Blockchain/Assignments/Assignment-1/) |
-| Final Capstone | Full Stack | [View Project](./FullStack/Capstone/Project-Alpha/) |
----
+* **Framework:** .NET 10.0
+* **Web API:** ASP.NET Core
+* **Language:** C# 14
+* **Documentation:** Swashbuckle.AspNetCore (Swagger)
 
-## 🛠️ Quick Git Commands
+## 🚦 Getting Started
 
-If you are new to branching, use these commands in your terminal:
+Follow these steps to run the API locally on your machine.
 
-* **Create your branch:** `git checkout -b your-name`
-* **Add your changes:** `git add .`
-* **Commit your work:** `git commit -m "Submit Assignment 1 - [Course Name]"`
-* **Push to GitHub:** `git push origin your-name`
+### Prerequisites
+* [.NET 10 SDK](https://dotnet.microsoft.com/download)
+* Visual Studio 2026 (or your preferred IDE)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/jabir02/TaskFlowApi.git](https://github.com/jabir02/TaskFlowApi.git)
+   cd TaskFlowApi
+
+2. **Restore dependencies:**
+   ```bash
+   dotnet restore
+3. **Run the application:**
+   ```bash
+   dotnet run
+3. **View the Documentation:**
+   Open your browser and navigate to https://localhost:<port>/swagger to interact with the API endpoints.
+
+| HTTP Method | Endpoint          | Description                                            |
+| :---------- | :---------------- | :----------------------------------------------------- |
+| `GET`       | `/api/tasks`      | Retrieves a list of all tasks.                         |
+| `GET`       | `/api/tasks/{id}` | Retrieves a specific task by its ID.                   |
+| `POST`      | `/api/tasks`      | Creates a new task. Requires a JSON payload.           |
+| `PUT`       | `/api/tasks/{id}` | Updates an existing task's title or completion status. |
+| `DELETE`    | `/api/tasks/{id}` | Deletes a task from the system.                        |
