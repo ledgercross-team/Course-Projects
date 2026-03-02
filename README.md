@@ -18,6 +18,7 @@ To keep the `main` branch clean, everyone must follow this workflow:
 
 ## 📝 Personal Branch README Template
 *Copy this into the README.md on your personal branch to help quickly navigate your work:*
+*Links provided here are for demo purposes only (Clicking on them will give 404)*
 
 ### [Your Name]'s Submissions Index
 | Submission Name | Course | Link to Files |
