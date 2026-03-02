@@ -22,13 +22,15 @@ To keep the `main` branch clean, everyone must follow this workflow:
 
 ## 📝 Personal Branch README Template
 *Copy this into the README.md on your personal branch to help quickly navigate your work:*
-*Links provided here are for demo purposes only (Clicking on them will give 404)*
 
 ### [Your Name]'s Submissions Index
 | Submission Name | Course | Link to Files |
 | :--- | :--- | :--- |
 | Assignment 1 | Blockchain | [View Files](./Blockchain/Assignments/Assignment-1/) |
 | Final Capstone | Full Stack | [View Project](./FullStack/Capstone/Project-Alpha/) |
+
+*Links provided here are for demo purposes only (Clicking on them will give 404)*
+
 ---
 
 ## 🛠️ Quick Git Commands
