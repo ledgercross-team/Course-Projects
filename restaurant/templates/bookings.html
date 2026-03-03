@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+  <article>
+    <h1>All Reservations</h1>
+
+    <!-- Date selector to filter bookings -->
+    <p>
+      <label for="reservation_date">Select Date: </label>
+      <input type="date" id="reservation_date">
+    </p>
+
+    <!--Begin row-->
+    <div class="row">
+      <!--Begin col-->
+      <div class="column">
+        <pre id="bookings"></pre>
+      </div>
+      <!--End col-->
+
+      <!--Begin col-->
+      <div class="column">
+        <div class="videowrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11898.289517452584!2d-87.60853049433447!3d41.79442860243028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2912ce6f7027%3A0xc0cfb5545d4a37b2!2sHyde%20Park%2C%20Chicago%2C%20IL%2C%20USA!5e0!3m2!1sen!2spt!4v1662384760663!5m2!1sen!2spt"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <!--End col-->
+    </div>
+    <!--End row-->
+
+
+
+
+  </article>
+</section>
+
+<!-- Add your code inside the script tags below  -->
+<script>
+  // Set today's date as default
+  const dateField = document.getElementById("reservation_date");
+  const today = new Date().toISOString().split('T')[0];
+  dateField.value = today;
+
+  // Function to fetch and display bookings for a specific date using the fetch API
+  function getBookings(date) {
+    fetch('/api/bookings/?date=' + date)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+
+        const bookingsElement = document.getElementById("bookings");
+
+        if (data.length === 0) {
+          // Show No Booking message if there are no bookings for that date
+          bookingsElement.innerHTML = "No Booking";
+        } else {
+          // Display bookings as pretty JSON
+          const pretty_json = JSON.stringify(data, null, 2);
+          bookingsElement.innerHTML = pretty_json;
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  }
+
+  // Changing the date refreshes the booking data
+  dateField.addEventListener('change', function () {
+    getBookings(this.value);
+  });
+
+  // Load bookings for today on page load
+  getBookings(today);
+</script>
+{% endblock %}

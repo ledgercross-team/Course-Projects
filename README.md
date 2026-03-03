@@ -1,43 +1,124 @@
-<p align="center">
-  <img src="ledgercross-logo.svg" alt="LedgerCross Logo" width="300"/>
-</p>
+# 🍋 Little Lemon Restaurant Booking API
 
-# Course Projects: Assignments & Capstone Submissions
-
-Welcome to the repository for all course-related submissions. Please follow the structure below to ensure your work is tracked and graded correctly.
+This project implements a **table booking system** and **menu API** for the Little Lemon restaurant using **Django** and **Django REST Framework**, connected to a **MySQL** database.
 
 ---
 
-## 🚀 Submission Instructions
+## 🚀 Setup Instructions
 
-To keep the `main` branch clean, everyone must follow this workflow:
+1. **Install dependencies:**
+   ```bash
+   pip install django djangorestframework djoser mysqlclient
+   ```
 
-1. **Create a Branch:** Create a new branch named with your name.
-2. **Directory Structure:** Place your files in the appropriate folder using the following format:
-   - `[Course Name]/Assignments/[Assignment Name]`
-   - `[Course Name]/Capstone/[Project Name]`
-3. **Push** Push your branch to the remote repository.
+2. **Create a MySQL database** called `reservations`
+
+3. **Run migrations:**
+   ```bash
+   python manage.py makemigrations && python manage.py migrate
+   ```
+
+4. **Create a superuser:**
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+5. **Run the server:**
+   ```bash
+   python manage.py runserver
+   ```
 
 ---
 
-## 📝 Personal Branch README Template
-*Copy this into the README.md on your personal branch to help quickly navigate your work:*
+## 📡 API Paths for Testing (Insomnia / Postman)
 
-### [Your Name]'s Submissions Index
-| Submission Name | Course | Link to Files |
-| :--- | :--- | :--- |
-| Assignment 1 | Blockchain | [View Files](./Blockchain/Assignments/Assignment-1/) |
-| Final Capstone | Full Stack | [View Project](./FullStack/Capstone/Project-Alpha/) |
+### 🔐 Authentication
 
-*Links provided here are for demo purposes only (Clicking on them will give 404)*
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/auth/users/` | Register a new user |
+| `POST` | `/auth/token/login/` | Login and obtain auth token |
+| `POST` | `/auth/token/logout/` | Logout (destroy token) |
+| `GET` | `/auth/users/me/` | Get current user info |
+
+### 📅 Table Booking API *(requires authentication)*
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/restaurant/booking/tables/` | List all bookings |
+| `POST` | `/restaurant/booking/tables/` | Create a new booking |
+| `GET` | `/restaurant/booking/tables/{id}/` | Retrieve a specific booking |
+| `PUT` | `/restaurant/booking/tables/{id}/` | Update a specific booking |
+| `PATCH` | `/restaurant/booking/tables/{id}/` | Partially update a booking |
+| `DELETE` | `/restaurant/booking/tables/{id}/` | Delete a booking |
+
+### 🍽️ Menu API *(requires authentication)*
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/restaurant/menu/` | List all menu items |
+| `POST` | `/restaurant/menu/` | Add a new menu item |
+| `GET` | `/restaurant/menu/{id}` | Retrieve a specific menu item |
+| `PUT` | `/restaurant/menu/{id}` | Update a specific menu item |
+
+### 🌐 Static HTML Pages
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/` | Home page |
+| `GET` | `/about/` | About page |
+| `GET` | `/book/` | Booking form page |
+| `GET` | `/menu/` | Menu page |
+| `GET` | `/bookings/` | All reservations page |
 
 ---
 
-## 🛠️ Quick Git Commands
+## 🔑 Authentication Notes
 
-If you are new to branching, use these commands in your terminal:
+- To access the API endpoints, you need to first **register a user** and **obtain a token**.
+- Include the token in the request header as:
+  ```
+  Authorization: Token <your-token-here>
+  ```
 
-* **Create your branch:** `git checkout -b your-name`
-* **Add your changes:** `git add .`
-* **Commit your work:** `git commit -m "Submit Assignment 1 - [Course Name]"`
-* **Push to GitHub:** `git push origin your-name`
+---
+
+## 📝 Example: Creating a Booking via API (Insomnia)
+
+**Step 1** — Register a user:
+```http
+POST /auth/users/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpass123!",
+  "email": "test@test.com"
+}
+```
+
+**Step 2** — Login to get a token:
+```http
+POST /auth/token/login/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpass123!"
+}
+```
+
+**Step 3** — Copy the token from the response.
+
+**Step 4** — Create a booking:
+```http
+POST /restaurant/booking/tables/
+Authorization: Token <token>
+Content-Type: application/json
+
+{
+  "first_name": "Jane",
+  "reservation_date": "2024-06-15",
+  "reservation_slot": 11
+}
+```

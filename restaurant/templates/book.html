@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+  <article>
+    <!-- Add your code in the line below  -->
+    <h1>Make a reservation</h1>
+
+    <!--Begin row-->
+    <div class="row">
+      <!--Begin col-->
+      <div class="column">
+        <form action="" method="post">
+          {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" id="button">
+        </form>
+        <p id="message" style="color: red;"></p>
+      </div>
+      <!--End col-->
+
+      <!--Begin col-->
+      <div class="column">
+        <div class="videowrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11898.289517452584!2d-87.60853049433447!3d41.79442860243028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2912ce6f7027%3A0xc0cfb5545d4a37b2!2sHyde%20Park%2C%20Chicago%2C%20IL%2C%20USA!5e0!3m2!1sen!2spt!4v1662384760663!5m2!1sen!2spt"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <!--End col-->
+    </div>
+    <!--End row-->
+
+
+
+
+  </article>
+</section>
+<!-- Add your code inside the script tags below  -->
+<script>
+  console.log("Hello");
+
+  // Set the reservation date field to a date picker
+  const dateField = document.getElementById("id_reservation_date");
+  dateField.type = "date";
+
+  // Auto-select current date when opening the booking form
+  const today = new Date().toISOString().split('T')[0];
+  dateField.value = today;
+
+  // Function to check existing bookings for a given date using the fetch API
+  function checkBookings(date) {
+    fetch('/api/bookings/?date=' + date)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Get the list of already booked slots for this date
+        let bookedSlots = [];
+        for (let i = 0; i < data.length; i++) {
+          bookedSlots.push(data[i].fields.reservation_slot);
+        }
+
+        // Get the reservation slot select element
+        const slotField = document.getElementById("id_reservation_slot");
+
+        // Reset all options to enabled
+        for (let i = 0; i < slotField.options.length; i++) {
+          slotField.options[i].disabled = false;
+        }
+
+        // Disable already booked slots
+        for (let i = 0; i < slotField.options.length; i++) {
+          let slotValue = parseInt(slotField.options[i].value);
+          if (bookedSlots.includes(slotValue)) {
+            slotField.options[i].disabled = true;
+          }
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  }
+
+  // Check bookings when date changes (refreshes booking data)
+  dateField.addEventListener('change', function () {
+    checkBookings(this.value);
+  });
+
+  // Check bookings for the current date on page load
+  checkBookings(today);
+
+  // Prevent duplicate booking on form submit
+  document.querySelector('form').addEventListener('submit', function (e) {
+    const selectedDate = dateField.value;
+    const slotField = document.getElementById("id_reservation_slot");
+    const selectedSlot = parseInt(slotField.value);
+
+    fetch('/api/bookings/?date=' + selectedDate)
+      .then(response => response.json())
+      .then(data => {
+        let isDuplicate = false;
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].fields.reservation_slot === selectedSlot) {
+            isDuplicate = true;
+            break;
+          }
+        }
+        if (isDuplicate) {
+          document.getElementById("message").textContent =
+            "This slot is already booked for the selected date. Please choose a different slot or date.";
+        } else {
+          // Allow form submission
+          e.target.submit();
+        }
+      })
+      .catch(error => console.error('Error:', error));
+
+    e.preventDefault();
+  });
+</script>
+{% endblock %}
