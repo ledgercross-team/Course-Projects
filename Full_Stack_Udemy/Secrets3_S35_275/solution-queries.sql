@@ -1,0 +1,7 @@
+CREATE TABLE users2 (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE users2 ADD COLUMN secret TEXT;
