@@ -1,11 +1,6 @@
-# Course Projects: Assignments & Capstone Submissions
+<p align="center">
+  <img src="screen.png" alt="Interface"/>
+</p>
 
----
-
-### Souhardo's Submissions Index
-| Submission Name | Course | Link to Files |
-| :--- | :--- | :--- |
-| Assignment 1 | Blockchain | [View Files](./Blockchain/Assignments/Assignment-1/) |
-| Final Capstone | Full Stack | [View Project](./FullStack/Capstone/Project-Alpha/) |
----
-
+## Description
+This is a simple dice game built with HTML, CSS, and JavaScript. It generates two random numbers between 1 and 6, displays the corresponding dice images, and announces the winner based on which player rolled the higher number.
