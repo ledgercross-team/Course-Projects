@@ -1,0 +1,23 @@
+# Task 13: CREATE Account - cURL Command and Output
+
+## Command:
+```
+curl -X POST http://localhost:8080/accounts \
+  -H "Content-Type: application/json" \
+  -d '{"name": "John Doe", "email": "john.doe@example.com", "address": "123 Main St, Anytown, USA", "phone_number": "555-1234", "date_joined": "2024-01-15"}'
+```
+
+## Output:
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "address": "123 Main St, Anytown, USA",
+  "phone_number": "555-1234",
+  "date_joined": "2024-01-15"
+}
+```
+
+**HTTP Status Code:** 201 Created
+**Location Header:** /accounts/1

@@ -1,0 +1,22 @@
+# Task 16: UPDATE Account - cURL Command and Output
+
+## Command:
+```
+curl -X PUT http://localhost:8080/accounts/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name": "John Updated", "email": "john.updated@example.com", "address": "789 Pine Rd, Newtown, USA", "phone_number": "555-9999", "date_joined": "2024-01-15"}'
+```
+
+## Output:
+```json
+{
+  "id": 1,
+  "name": "John Updated",
+  "email": "john.updated@example.com",
+  "address": "789 Pine Rd, Newtown, USA",
+  "phone_number": "555-9999",
+  "date_joined": "2024-01-15"
+}
+```
+
+**HTTP Status Code:** 200 OK

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accounts
+  labels:
+    app: accounts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounts
+  template:
+    metadata:
+      labels:
+        app: accounts
+    spec:
+      containers:
+        - name: accounts
+          image: us.icr.io/sn-labs/accounts-service:1.0
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DATABASE_URI
+              value: "sqlite:///accounts.db"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20

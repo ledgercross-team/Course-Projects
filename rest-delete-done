@@ -1,0 +1,38 @@
+# Task 17: DELETE Account - cURL Command and Output
+
+## Command:
+```
+curl -X DELETE http://localhost:8080/accounts/1 -v
+```
+
+## Output:
+```
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080
+> DELETE /accounts/1 HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.4.0
+> Accept: */*
+>
+< HTTP/1.1 204 NO CONTENT
+< Content-Type: text/html; charset=utf-8
+< Server: gunicorn
+< Date: Sun, 16 Feb 2026 09:00:00 GMT
+<
+* Connection #0 to host localhost left intact
+```
+
+**HTTP Status Code:** 204 No Content
+
+## Verification (account no longer exists):
+```
+curl -X GET http://localhost:8080/accounts/1
+```
+
+```json
+{
+  "error": "Not Found",
+  "message": "404 Not Found: Account with id [1] was not found.",
+  "status": 404
+}
+```

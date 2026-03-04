@@ -1,43 +1,82 @@
-<p align="center">
-  <img src="ledgercross-logo.svg" alt="LedgerCross Logo" width="300"/>
-</p>
+# Customer Accounts Microservice
 
-# Course Projects: Assignments & Capstone Submissions
+[![CI Build](https://github.com/Jaima01/Customer-account-microservice/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/Jaima01/Customer-account-microservice/actions)
 
-Welcome to the repository for all course-related submissions. Please follow the structure below to ensure your work is tracked and graded correctly.
+## Overview
 
----
+A RESTful microservice for managing customer accounts, built with Python Flask. This service supports full CRUD operations (Create, Read, Update, Delete, and List) for customer accounts.
 
-## 🚀 Submission Instructions
+## Features
 
-To keep the `main` branch clean, everyone must follow this workflow:
+- **Create** a new customer account
+- **Read** a customer account by ID
+- **List** all customer accounts
+- **Update** an existing customer account
+- **Delete** a customer account
+- **Security**: Talisman security headers and CORS policies
+- **CI/CD**: Automated builds and testing with GitHub Actions
+- **Containerization**: Dockerized application
+- **Deployment**: Kubernetes deployment configuration
 
-1. **Create a Branch:** Create a new branch named with your name.
-2. **Directory Structure:** Place your files in the appropriate folder using the following format:
-   - `[Course Name]/Assignments/[Assignment Name]`
-   - `[Course Name]/Capstone/[Project Name]`
-3. **Push** Push your branch to the remote repository.
+## Technology Stack
 
----
+- **Language**: Python 3.11
+- **Framework**: Flask 2.3
+- **Database**: PostgreSQL / SQLite (development)
+- **Testing**: Nose, Coverage, Pylint, Flake8
+- **CI/CD**: GitHub Actions, Tekton Pipelines
+- **Containerization**: Docker
+- **Orchestration**: Kubernetes
 
-## 📝 Personal Branch README Template
-*Copy this into the README.md on your personal branch to help quickly navigate your work:*
+## API Endpoints
 
-### [Your Name]'s Submissions Index
-| Submission Name | Course | Link to Files |
-| :--- | :--- | :--- |
-| Assignment 1 | Blockchain | [View Files](./Blockchain/Assignments/Assignment-1/) |
-| Final Capstone | Full Stack | [View Project](./FullStack/Capstone/Project-Alpha/) |
+| Method   | Endpoint              | Description                 |
+|----------|-----------------------|-----------------------------|
+| `GET`    | `/`                   | Service root information    |
+| `GET`    | `/health`             | Health check                |
+| `POST`   | `/accounts`           | Create a new account        |
+| `GET`    | `/accounts`           | List all accounts           |
+| `GET`    | `/accounts/<id>`      | Read an account by ID       |
+| `PUT`    | `/accounts/<id>`      | Update an account           |
+| `DELETE` | `/accounts/<id>`      | Delete an account           |
 
-*Links provided here are for demo purposes only (Clicking on them will give 404)*
+## Setup & Installation
 
----
+```bash
+# Clone the repository
+git clone https://github.com/Jaima01/Customer-account-microservice.git
+cd Customer-account-microservice
 
-## 🛠️ Quick Git Commands
+# Install dependencies
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
-If you are new to branching, use these commands in your terminal:
+# Run the service
+python wsgi.py
+```
 
-* **Create your branch:** `git checkout -b your-name`
-* **Add your changes:** `git add .`
-* **Commit your work:** `git commit -m "Submit Assignment 1 - [Course Name]"`
-* **Push to GitHub:** `git push origin your-name`
+## Running Tests
+
+```bash
+nosetests
+```
+
+## Docker
+
+```bash
+# Build the image
+docker build -t accounts-service:1.0 .
+
+# Run the container
+docker run -d -p 8080:8080 accounts-service:1.0
+```
+
+## Kubernetes Deployment
+
+```bash
+kubectl apply -f k8s/
+```
+
+## License
+
+Licensed under the Apache License 2.0.

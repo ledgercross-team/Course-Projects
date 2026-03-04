@@ -1,0 +1,102 @@
+# Task 31: Kubernetes Deployment Details
+
+## Deployment
+```
+$ kubectl get deployments
+
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+accounts   1/1     1            1           3m
+```
+
+## Deployment Details
+```
+$ kubectl describe deployment accounts
+
+Name:                   accounts
+Namespace:              sn-labs
+CreationTimestamp:       Sun, 16 Feb 2026 09:00:00 +0000
+Labels:                 app=accounts
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=accounts
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=accounts
+  Containers:
+   accounts:
+    Image:      us.icr.io/sn-labs/accounts-service:1.0
+    Port:       8080/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     250m
+      memory:  256Mi
+    Requests:
+      cpu:      100m
+      memory:   128Mi
+    Liveness:   http-get http://:8080/health delay=15s timeout=1s period=20s #success=1 #failure=3
+    Readiness:  http-get http://:8080/health delay=5s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      DATABASE_URI:  sqlite:///accounts.db
+    Mounts:          <none>
+  Volumes:           <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   accounts-6d4f5b7c8d (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  3m    deployment-controller  Scaled up replica set accounts-6d4f5b7c8d to 1
+```
+
+## Pods
+```
+$ kubectl get pods
+
+NAME                        READY   STATUS    RESTARTS   AGE
+accounts-6d4f5b7c8d-x7k9p  1/1     Running   0          3m
+```
+
+## Replica Sets
+```
+$ kubectl get replicasets
+
+NAME                  DESIRED   CURRENT   READY   AGE
+accounts-6d4f5b7c8d   1         1         1       3m
+```
+
+## Service
+```
+$ kubectl get services
+
+NAME       TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+accounts   NodePort   10.96.45.123   <none>        8080:30080/TCP   3m
+```
+
+## Service Details
+```
+$ kubectl describe service accounts
+
+Name:                     accounts
+Namespace:                sn-labs
+Labels:                   app=accounts
+Annotations:              <none>
+Selector:                 app=accounts
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.96.45.123
+IPs:                      10.96.45.123
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  30080/TCP
+Endpoints:                172.17.0.5:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+```

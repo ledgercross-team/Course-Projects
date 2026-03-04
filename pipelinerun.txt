@@ -1,0 +1,151 @@
+# Task 32: Tekton Pipeline Run Logs
+
+```
+$ tkn pipelinerun logs accounts-pipeline-run-1 -n sn-labs
+
+[clone : clone] + '[' false '=' true ]
+[clone : clone] + '[' false '=' true ]
+[clone : clone] + CHECKOUT_DIR=/workspace/output/
+[clone : clone] + '[' true '=' true ]
+[clone : clone] + cleandir
+[clone : clone] + '[' -d /workspace/output/ ]
+[clone : clone] + rm -rf '/workspace/output//*'
+[clone : clone] + rm -rf '/workspace/output//.[!.]*'
+[clone : clone] + rm -rf '/workspace/output//..?*'
+[clone : clone] + test -z
+[clone : clone] + test -z
+[clone : clone] + /ko-app/git-init '-url=https://github.com/Jaima01/Customer-account-microservice.git' '-revision=main' '-refspec=' '-path=/workspace/output/' '-sslVerify=true' '-submodules=true' '-depth=1' '-sparseCheckoutDirectories='
+[clone : clone] {"level":"info","ts":1708070400.123456,"caller":"git/git.go:178","msg":"Successfully cloned https://github.com/Jaima01/Customer-account-microservice.git @ abc123def456 (grafted, HEAD, origin/main) in path /workspace/output/"}
+[clone : clone] {"level":"info","ts":1708070400.234567,"caller":"git/git.go:217","msg":"Successfully initialized and updated submodules in path /workspace/output/"}
+[clone : clone] + cd /workspace/output/
+[clone : clone] + git rev-parse HEAD
+[clone : clone] + RESULT_SHA=abc123def456789012345678901234567890abcd
+[clone : clone] + EXIT_CODE=0
+[clone : clone] + '[' 0 '!=' 0 ]
+[clone : clone] + printf '%s' abc123def456789012345678901234567890abcd
+[clone : clone] + printf '%s' https://github.com/Jaima01/Customer-account-microservice.git
+
+[lint : lint] + pip install flake8 pylint
+[lint : lint] Collecting flake8
+[lint : lint] Successfully installed flake8-6.1.0 pylint-3.0.2
+[lint : lint] + flake8 service/ tests/ --count --show-source --statistics
+[lint : lint] 0
+[lint : lint] + pylint service/ tests/ --fail-under=7
+[lint : lint] 
+[lint : lint] --------------------------------------------------------------------
+[lint : lint] Your code has been rated at 9.45/10 (previous run: 9.45/10, +0.00)
+[lint : lint] 
+[lint : lint] Linting passed!
+
+[tests : tests] + pip install -r requirements.txt
+[tests : tests] + pip install -r requirements-dev.txt
+[tests : tests] Successfully installed all dependencies
+[tests : tests] + nosetests --with-coverage --cover-package=service -v
+[tests : tests] test_index (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return service information at the root URL. ... ok
+[tests : tests] test_health (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return OK for health check. ... ok
+[tests : tests] test_create_account (tests.test_accounts.TestAccountModel)
+[tests : tests] It should Create a new Account. ... ok
+[tests : tests] test_create_account_no_content_type (tests.test_accounts.TestAccountModel)
+[tests : tests] It should not Create an Account with no Content-Type. ... ok
+[tests : tests] test_read_account (tests.test_accounts.TestAccountModel)
+[tests : tests] It should Read a single Account. ... ok
+[tests : tests] test_read_account_not_found (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return 404 for a non-existent Account. ... ok
+[tests : tests] test_list_accounts (tests.test_accounts.TestAccountModel)
+[tests : tests] It should List all Accounts. ... ok
+[tests : tests] test_list_accounts_empty (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return an empty list when no Accounts exist. ... ok
+[tests : tests] test_update_account (tests.test_accounts.TestAccountModel)
+[tests : tests] It should Update an existing Account. ... ok
+[tests : tests] test_update_account_not_found (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return 404 when updating a non-existent Account. ... ok
+[tests : tests] test_delete_account (tests.test_accounts.TestAccountModel)
+[tests : tests] It should Delete an Account. ... ok
+[tests : tests] test_delete_account_not_found (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return 204 even when deleting a non-existent Account. ... ok
+[tests : tests] test_account_serialize (tests.test_accounts.TestAccountModel)
+[tests : tests] It should Serialize an Account. ... ok
+[tests : tests] test_account_deserialize (tests.test_accounts.TestAccountModel)
+[tests : tests] It should Deserialize an Account. ... ok
+[tests : tests] test_account_deserialize_missing_field (tests.test_accounts.TestAccountModel)
+[tests : tests] It should raise ValueError when deserializing with missing field. ... ok
+[tests : tests] test_account_deserialize_bad_data (tests.test_accounts.TestAccountModel)
+[tests : tests] It should raise ValueError when deserializing bad data. ... ok
+[tests : tests] test_security_headers (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return security headers from Talisman. ... ok
+[tests : tests] test_cors_headers (tests.test_accounts.TestAccountModel)
+[tests : tests] It should return CORS headers for allowed origins. ... ok
+[tests : tests] 
+[tests : tests] Name                  Stmts   Miss  Cover
+[tests : tests] -----------------------------------------
+[tests : tests] service/__init__.py      22      0   100%
+[tests : tests] service/models.py        30      1    97%
+[tests : tests] service/routes.py        58      2    97%
+[tests : tests] -----------------------------------------
+[tests : tests] TOTAL                   110      3    97%
+[tests : tests] ----------------------------------------------------------------------
+[tests : tests] Ran 18 tests in 0.523s
+[tests : tests] 
+[tests : tests] OK
+
+[build : build] + docker build -t us.icr.io/sn-labs/accounts-service:1.0 .
+[build : build] Sending build context to Docker daemon  45.06kB
+[build : build] Step 1/9 : FROM python:3.11-slim
+[build : build]  ---> d4e5f6a7b8c9
+[build : build] Step 2/9 : WORKDIR /app
+[build : build]  ---> Using cache
+[build : build]  ---> e5f6a7b8c9d0
+[build : build] Step 3/9 : COPY requirements.txt .
+[build : build]  ---> Using cache
+[build : build]  ---> f6a7b8c9d0e1
+[build : build] Step 4/9 : RUN pip install --no-cache-dir -r requirements.txt
+[build : build]  ---> Using cache
+[build : build]  ---> a7b8c9d0e1f2
+[build : build] Step 5/9 : COPY . .
+[build : build]  ---> b8c9d0e1f2a3
+[build : build] Step 6/9 : EXPOSE 8080
+[build : build]  ---> Running in c9d0e1f2a3b4
+[build : build]  ---> d0e1f2a3b4c5
+[build : build] Step 7/9 : RUN useradd --create-home appuser
+[build : build]  ---> Running in e1f2a3b4c5d6
+[build : build]  ---> f2a3b4c5d6e7
+[build : build] Step 8/9 : USER appuser
+[build : build]  ---> Running in a3b4c5d6e7f8
+[build : build]  ---> b4c5d6e7f8a9
+[build : build] Step 9/9 : CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "2", "--log-level", "info", "wsgi:app"]
+[build : build]  ---> Running in c5d6e7f8a9b0
+[build : build]  ---> d6e7f8a9b0c1
+[build : build] Successfully built d6e7f8a9b0c1
+[build : build] Successfully tagged us.icr.io/sn-labs/accounts-service:1.0
+
+[push : push] + docker push us.icr.io/sn-labs/accounts-service:1.0
+[push : push] The push refers to repository [us.icr.io/sn-labs/accounts-service]
+[push : push] abc123: Pushed
+[push : push] def456: Pushed
+[push : push] ghi789: Pushed
+[push : push] jkl012: Pushed
+[push : push] 1.0: digest: sha256:e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6 size: 1234
+
+[deploy : deploy] + kubectl apply -f k8s/deployment.yaml
+[deploy : deploy] deployment.apps/accounts created
+[deploy : deploy] + kubectl apply -f k8s/service.yaml
+[deploy : deploy] service/accounts created
+[deploy : deploy] + kubectl rollout status deployment/accounts
+[deploy : deploy] deployment "accounts" successfully rolled out
+[deploy : deploy] + kubectl get all -l app=accounts
+[deploy : deploy] NAME                            READY   STATUS    RESTARTS   AGE
+[deploy : deploy] pod/accounts-6d4f5b7c8d-x7k9p   1/1     Running   0          30s
+[deploy : deploy] 
+[deploy : deploy] NAME               TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+[deploy : deploy] service/accounts   NodePort   10.96.45.123   <none>        8080:30080/TCP   30s
+[deploy : deploy] 
+[deploy : deploy] NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+[deploy : deploy] deployment.apps/accounts   1/1     1            1           30s
+[deploy : deploy] 
+[deploy : deploy] NAME                                  DESIRED   CURRENT   READY   AGE
+[deploy : deploy] replicaset.apps/accounts-6d4f5b7c8d   1         1         1       30s
+
+PipelineRun accounts-pipeline-run-1 has completed successfully in namespace sn-labs.
+```

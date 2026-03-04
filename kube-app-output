@@ -1,0 +1,22 @@
+# Task 26: Kubernetes Application Output
+
+The following JSON output is generated after the application successfully launches
+in the internal web browser on port 8080:
+
+```json
+{
+  "name": "Customer Accounts Service",
+  "version": "1.0.0",
+  "status": "running",
+  "paths": {
+    "list_accounts": "GET /accounts",
+    "create_account": "POST /accounts",
+    "read_account": "GET /accounts/<id>",
+    "update_account": "PUT /accounts/<id>",
+    "delete_account": "DELETE /accounts/<id>"
+  }
+}
+```
+
+**URL:** http://localhost:8080/
+**HTTP Status Code:** 200 OK
