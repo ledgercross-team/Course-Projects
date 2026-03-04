@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="screen.png" alt="Band Generator" width="300"/>
+  <img src="screen.png" alt="Band Generator"/>
 </p>
 
-```markdown
 ## Description
 A simple web application that generates a unique band name.
-```
