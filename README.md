@@ -2,7 +2,7 @@
 
 | Submission Name | Course | Link to Files |
 | :--- | :--- | :--- |
-| Course 1 Portfolio Project | Front End | [View Files](https://github.com/nasifsafwan/learningfullstack/tree/main/Course%202%20Final%20Project) |
+| Course 1 Portfolio Project | Front End | [View Project](https://github.com/nasifsafwan/learningfullstack/tree/main/Course%202%20Final%20Project) |
 | Social Dashboard | Full Stack | [View Project](https://github.com/nasifsafwan/learningfullstack/tree/main/social-dashboard) |
 | Paradise Nursery | Full Stack | [View Project](https://github.com/nasifsafwan/learningfullstack/tree/main/Paradise%20Nursery) |
 | Small Projects | N/A | [View Project](https://github.com/nasifsafwan/House-Ledger) |
