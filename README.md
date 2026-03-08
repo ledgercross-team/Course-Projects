@@ -1,4 +1,4 @@
-### Nasif Safwan's Submissions Index
+### Nasif Safwan's Submission Index
 
 | Submission Name | Course | Link to Files |
 | :--- | :--- | :--- |
