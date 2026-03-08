@@ -1,6 +1,6 @@
-<p align="center">
+<!-- <p align="center">
   <img src="ledgercross-logo.svg" alt="LedgerCross Logo" width="300"/>
-</p>
+</p> -->
 
 # Course Projects: Assignments & Capstone Submissions
 
