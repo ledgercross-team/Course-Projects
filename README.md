@@ -29,7 +29,7 @@ To keep the `main` branch clean, everyone must follow this workflow:
 | Assignment 1 | Blockchain | [View Files](./Blockchain/Assignments/Assignment-1/) |
 | Final Capstone | Full Stack | [View Project](./FullStack/Capstone/Project-Alpha/) |
 
-*Links provided here are for demo purposes only (Clicking on them will give 404)*
+*Links provided here are for demo purposes only (Clicking on them will give 404).*
 
 ---
 
