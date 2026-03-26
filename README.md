@@ -43,11 +43,12 @@
 
 | Submission Name                  | Link to Files |
 | :------------------------------- | :------------ |
-| Classifying Document             | [View Files](./GenAI_Coursera/Classifying%20Document.ipynb) |
+| Classifying Document             | [View Files](./GenAI_Coursera/Classifying%20Document.ipynb)              |
 | Creating an NLP Data Loader      | [View Files](./GenAI_Coursera/Creating%20an%20NLP%20Data%20Loader.ipynb) |
-| Exploring Generative AI Libraries | [View Files](./GenAI_Coursera/Exploring_Generative_AI_Libraries.ipynb) |
-| Implementing Tokenization        | [View Files](./GenAI_Coursera/Implementing%20Tokenization.ipynb) |
-| Feed Forward NN                   | [View Files](./GenAI_Coursera/FeedForwardNeuralNetworks.ipynb)  |
-| Language Modelling                | [View Files](./GenAI_Coursera/LanguageModelling.ipynb)  |
+| Exploring Generative AI Libraries | [View Files](./GenAI_Coursera/Exploring_Generative_AI_Libraries.ipynb)  |
+| Implementing Tokenization         | [View Files](./GenAI_Coursera/Implementing%20Tokenization.ipynb)        |
+| Feed Forward NN                   | [View Files](./GenAI_Coursera/FeedForwardNeuralNetworks.ipynb)          |
+| Language Modelling                | [View Files](./GenAI_Coursera/LanguageModelling.ipynb)                  |
+| Word2Vec Part-1                   | [View Files](./GenAI_Coursera/Integrating%20Word2Vec%20Part1.ipynb)     |
 
 ---
