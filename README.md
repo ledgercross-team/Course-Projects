@@ -50,5 +50,6 @@
 | Feed Forward NN                   | [View Files](./GenAI_Coursera/FeedForwardNeuralNetworks.ipynb)          |
 | Language Modelling                | [View Files](./GenAI_Coursera/LanguageModelling.ipynb)                  |
 | Word2Vec Part-1                   | [View Files](./GenAI_Coursera/Integrating%20Word2Vec%20Part1.ipynb)     |
+| Word2Vec Part-2                   | [View Files](./GenAI_Coursera/Integrating%20Word2Vec%20Part2.ipynb)     |
 
 ---
