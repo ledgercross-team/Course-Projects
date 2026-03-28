@@ -53,5 +53,6 @@
 | Word2Vec Part-2                   | [View Files](./GenAI_Coursera/Integrating%20Word2Vec%20Part2.ipynb)     |
 | Seq-to-Seq Model                  | [View Files](./GenAI_Coursera/Developing%20a%20Sequence-to-Sequence%20Model.ipynb)     |
 | Attn. Mechanism & Pos. Embedding  | [View Files](./GenAI_Coursera/Attention%20Mechanism%20and%20Positional%20Encoding.ipynb)     |
+| Trans. for Classification         | [View Files](./GenAI_Coursera/Applying%20Transformers%20for%20Classification.ipynb)     |
 
 ---
