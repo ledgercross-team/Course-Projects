@@ -51,5 +51,6 @@
 | Language Modelling                | [View Files](./GenAI_Coursera/LanguageModelling.ipynb)                  |
 | Word2Vec Part-1                   | [View Files](./GenAI_Coursera/Integrating%20Word2Vec%20Part1.ipynb)     |
 | Word2Vec Part-2                   | [View Files](./GenAI_Coursera/Integrating%20Word2Vec%20Part2.ipynb)     |
+| Seq-to-Seq Model                  | [View Files](./GenAI_Coursera/Developing%20a%20Sequence-to-Sequence%20Model.ipynb)     |
 
 ---
