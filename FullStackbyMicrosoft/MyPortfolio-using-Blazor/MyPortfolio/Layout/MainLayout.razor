@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <header class="top-nav">
+        <div class="brand-logo">Taharat.</div>
+        <nav class="nav-links">
+            <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+            <NavLink href="/publications">Publications</NavLink>
+            <NavLink href="/projects">Projects</NavLink>
+            <NavLink href="/career">Career</NavLink> <NavLink href="/about">About Me</NavLink>
+            <NavLink href="/contact">Contact Info</NavLink>
+        </nav>
+    </header>
+
+    <main class="content-area">
+        @Body
+    </main>
+</div>
