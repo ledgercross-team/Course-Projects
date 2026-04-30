@@ -1,0 +1,51 @@
+## Dependencies
+node_modules/
+
+## Next.js
+.next/
+out/
+.vercel/
+
+## Environment / secrets
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+
+## Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+## Tests / coverage
+coverage/
+.nyc_output/
+
+## Ethereum / Solidity build artifacts
+ethereum/build/*
+!ethereum/build/*.json
+
+## OS / editor junk
+.DS_Store
+Thumbs.db
+
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+.idea/
+
+## Caches
+.eslintcache
+.npm/
+.pnpm-store/
+.yarn/
+.pnp.*
+.cache/
+.turbo/
