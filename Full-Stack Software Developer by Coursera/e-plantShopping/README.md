@@ -1,10 +1,10 @@
 # Sajid's Submissions Index
 
-| Submission Name | Course | Link |
-|---|---|---|
-| Paradise Nursery Shopping Application | Full-Stack Software Developer by Coursera | [View Project](./Full-Stack%20Software%20Developer%20by%20Coursera/e-plantShopping) |
+## Full-Stack Software Developer by Coursera
 
-## Projects
-- React + Vite plant shopping application
-- Cart functionality using Redux
-- Responsive product listing UI
+### Projects
+- Paradise Nursery Shopping Application
+  - React + Vite
+  - Redux cart functionality
+  - Responsive product listing UI
+  - Shopping cart management
