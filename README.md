@@ -2,8 +2,8 @@
 
 | Submission Name | Course | Link to Files |
 | :--- | :--- | :--- |
-| Paradise Nursery | Full Stack | [View Files](https://github.com/ledgercross-team/Course-Projects/tree/Sajid/IBM%20Full-Stack%20Javascript%20Developer%20by%20Coursera/e-plantShopping)
-| Book Reviews | Full Stack | [View Files](https://github.com/ledgercross-team/Course-Projects/tree/Sajid/IBM%20Full-Stack%20Javascript%20Developer%20by%20Coursera/expressBookReviews) |
+| Paradise Nursery | Full Stack | [View Files](https://github.com/ledgercross-team/Course-Projects/tree/Sajid/IBM%20Full-Stack%20Javascript%20Developer%20by%20Coursera/Assignments/e-plantShopping)
+| Express Book Reviews | Full Stack | [View Files](https://github.com/ledgercross-team/Course-Projects/tree/Sajid/IBM%20Full-Stack%20Javascript%20Developer%20by%20Coursera/Assignments/expressBookReviews)|
 | Final Capstone  | Full Stack | [View Project](https://github.com/Saji-d/ledgerturf) |
 
 
