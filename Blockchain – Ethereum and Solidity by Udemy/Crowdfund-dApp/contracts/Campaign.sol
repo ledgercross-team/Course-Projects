@@ -150,7 +150,7 @@ contract Campaign is ReentrancyGuard {
      * @dev Returns summary of campaign status.
      */
     function getSummary() external view returns (
-        uint256, uint256, uint256, uint256, address, string memory, string memory, string memory
+        uint256, uint256, uint256, uint256, address, string memory, string memory, string memory, uint256
     ) {
         return (
             minimumContribution,
@@ -160,7 +160,8 @@ contract Campaign is ReentrancyGuard {
             manager,
             title,
             description,
-            imageUrl
+            imageUrl,
+            fundingGoal
         );
     }
 }

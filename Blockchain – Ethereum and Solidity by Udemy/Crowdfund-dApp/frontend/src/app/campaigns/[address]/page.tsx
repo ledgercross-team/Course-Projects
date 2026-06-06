@@ -69,11 +69,11 @@ export default function CampaignDetailsPage() {
 
   if (!summary) return <div>Campaign not found.</div>;
 
-  // summary: [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl]
-  const [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl] = summary;
+  // summary: [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl, fundingGoal]
+  const [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl, fundingGoal] = (summary as unknown as any[]) || [];
   
-  const progress = 0; 
-
+  const progress = Number(fundingGoal) > 0 ? Math.min((Number(balance) / Number(fundingGoal)) * 100, 100) : 0; 
+  const formattedGoal = fundingGoal ? formatEther(fundingGoal as bigint) : '0';
   const onSubmit = (values: ContributeFormValues) => {
     if (parseEther(values.amount) < (minContribution as bigint)) {
       toast.error(`Minimum contribution is ${formatEther(minContribution as bigint)} ETH`);
@@ -132,6 +132,7 @@ export default function CampaignDetailsPage() {
               <div className="space-y-2">
                 <div className="flex justify-between text-2xl font-bold">
                   <span>{formatEther(balance as bigint)} ETH</span>
+                  <span className="text-muted-foreground text-sm self-end">Goal: {formattedGoal} ETH</span>
                 </div>
                 <p className="text-sm text-muted-foreground">raised so far</p>
                 <Progress value={progress} />

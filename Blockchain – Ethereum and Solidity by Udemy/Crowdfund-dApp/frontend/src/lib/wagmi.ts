@@ -2,12 +2,11 @@ import { getDefaultConfig } from '@rainbow-me/rainbowkit';
 import { mainnet, sepolia, hardhat } from 'wagmi/chains';
 import { http } from 'wagmi';
 
-const chains = [
-  ...(process.env.NODE_ENV === 'development' ? [hardhat] : []),
-  mainnet,
-  sepolia,
-  ...(process.env.NODE_ENV === 'development' ? [] : [hardhat]),
-] as const;
+import { Chain } from 'wagmi/chains';
+
+const chains: [Chain, ...Chain[]] = process.env.NODE_ENV === 'development' 
+  ? [hardhat, mainnet, sepolia] 
+  : [mainnet, sepolia, hardhat];
 
 export const config = getDefaultConfig({
   appName: 'Crowdfund dApp',

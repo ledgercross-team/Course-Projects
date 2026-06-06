@@ -69,7 +69,7 @@ export default function HomePage() {
             const summary = campaignSummaries?.[index]?.result;
             if (!summary || !Array.isArray(summary)) return null;
             
-            // summary: [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl]
+            // summary: [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl, fundingGoal]
             return (
               <CampaignCard
                 key={address}
@@ -77,7 +77,7 @@ export default function HomePage() {
                 title={summary[5] as string}
                 description={summary[6] as string}
                 imageUrl={summary[7] as string}
-                fundingGoal={0n}
+                fundingGoal={summary[8] as bigint}
                 balance={summary[1] as bigint}
               />
             );
