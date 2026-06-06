@@ -1,4 +1,4 @@
-export const FACTORY_ADDRESS = (process.env.NEXT_PUBLIC_FACTORY_ADDRESS || '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0') as `0x${string}`;
+export const FACTORY_ADDRESS = (process.env.NEXT_PUBLIC_FACTORY_ADDRESS || '0x8A791620dd6260079BF849Dc5567aDC3F2FdC318') as `0x${string}`;
 
 export const SUPPORTED_CHAINS = {
   localhost: 31337,

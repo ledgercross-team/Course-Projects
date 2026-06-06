@@ -1,31 +1,75 @@
 'use client';
 
-import { useReadContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 import { CAMPAIGN_ABI } from '@/constants/abis';
 import { useParams } from 'next/navigation';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { formatEther } from 'viem';
 import { toast } from 'sonner';
 import { useEffect } from 'react';
+import { hardhat } from 'wagmi/chains';
 
 export default function RequestsPage() {
   const params = useParams();
   const address = params.address as `0x${string}`;
 
-  const { data: requestsCount } = useReadContract({
+  const { data: requestsCount, refetch: refetchCount } = useReadContract({
     address,
     abi: CAMPAIGN_ABI,
     functionName: 'requestsCount',
+    chainId: hardhat.id,
   });
 
-  const { data: hash } = { data: undefined as `0x${string}` | undefined }; // Placeholder for actual write interaction
-  const { isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { data: approversCount } = useReadContract({
+    address,
+    abi: CAMPAIGN_ABI,
+    functionName: 'approversCount',
+    chainId: hardhat.id,
+  });
+
+  const { data: requestsData, isLoading, refetch: refetchRequests } = useReadContracts({
+    contracts: Array.from({ length: Number(requestsCount || 0) }).map((_, i) => ({
+      address,
+      abi: CAMPAIGN_ABI,
+      functionName: 'getRequest',
+      args: [BigInt(i)],
+      chainId: hardhat.id,
+    })),
+    query: {
+      enabled: !!requestsCount && Number(requestsCount) > 0,
+    }
+  });
+
+  const { writeContract, data: hash } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   useEffect(() => {
     if (isSuccess) {
       toast.success('Transaction successful!');
+      refetchCount();
+      refetchRequests();
     }
-  }, [isSuccess]);
+  }, [isSuccess, refetchCount, refetchRequests]);
+
+  const onApprove = (index: number) => {
+    writeContract({
+      address,
+      abi: CAMPAIGN_ABI,
+      functionName: 'approveRequest',
+      args: [BigInt(index)],
+    });
+  };
+
+  const onFinalize = (index: number) => {
+    writeContract({
+      address,
+      abi: CAMPAIGN_ABI,
+      functionName: 'finalizeRequest',
+      args: [BigInt(index)],
+    });
+  };
 
   return (
     <div className="space-y-8">
@@ -49,11 +93,64 @@ export default function RequestsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell colSpan={7} className="text-center py-10 text-muted-foreground">
-                  Requests loading logic implemented in production version via subgraph or multi-call.
-                </TableCell>
-              </TableRow>
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center py-10">Loading requests...</TableCell>
+                </TableRow>
+              ) : !requestsData || requestsData.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center py-10 text-muted-foreground">
+                    No requests found.
+                  </TableCell>
+                </TableRow>
+              ) : (
+                requestsData.map((res, index) => {
+                  if (!res.result || !Array.isArray(res.result)) return null;
+                  const [description, amount, recipient, complete, approvalCount] = res.result;
+
+                  return (
+                    <TableRow key={index}>
+                      <TableCell>{index}</TableCell>
+                      <TableCell>{description as string}</TableCell>
+                      <TableCell>{formatEther(amount as bigint)}</TableCell>
+                      <TableCell className="font-mono text-xs">{recipient as string}</TableCell>
+                      <TableCell>
+                        {approvalCount.toString()} / {approversCount?.toString() || '0'}
+                      </TableCell>
+                      <TableCell>
+                        {complete ? (
+                          <span className="text-green-600 font-medium">Completed</span>
+                        ) : (
+                          <span className="text-yellow-600 font-medium">Pending</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          {!complete && (
+                            <>
+                              <Button 
+                                size="sm" 
+                                variant="outline"
+                                onClick={() => onApprove(index)}
+                                disabled={isConfirming}
+                              >
+                                Approve
+                              </Button>
+                              <Button 
+                                size="sm"
+                                onClick={() => onFinalize(index)}
+                                disabled={isConfirming || Number(approvalCount) <= (Number(approversCount || 0) / 2)}
+                              >
+                                Finalize
+                              </Button>
+                            </>
+                          )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
             </TableBody>
           </Table>
         </CardContent>

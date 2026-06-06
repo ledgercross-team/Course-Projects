@@ -131,6 +131,22 @@ contract Campaign is ReentrancyGuard {
     }
 
     /**
+     * @dev Returns details of a specific request.
+     */
+    function getRequest(uint256 index) external view returns (
+        string memory, uint256, address, bool, uint256
+    ) {
+        Request storage request = requests[index];
+        return (
+            request.description,
+            request.amount,
+            request.recipient,
+            request.complete,
+            request.approvalCount
+        );
+    }
+
+    /**
      * @dev Returns summary of campaign status.
      */
     function getSummary() external view returns (
