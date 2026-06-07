@@ -7,6 +7,7 @@ import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Label } from '@/components/ui/label';
@@ -67,13 +68,14 @@ export default function CampaignDetailsPage() {
     );
   }
 
-  if (!summary) return <div>Campaign not found.</div>;
+  if (!summary || !Array.isArray(summary)) return <div>Campaign not found.</div>;
 
   // summary: [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl, fundingGoal]
-  const [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl, fundingGoal] = (summary as unknown as any[]) || [];
+  const [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl, fundingGoal] = summary as readonly [bigint, bigint, bigint, bigint, string, string, string, string, bigint];
   
+  const isFunded = balance >= fundingGoal;
   const progress = Number(fundingGoal) > 0 ? Math.min((Number(balance) / Number(fundingGoal)) * 100, 100) : 0; 
-  const formattedGoal = fundingGoal ? formatEther(fundingGoal as bigint) : '0';
+  const formattedGoal = formatEther(fundingGoal);
   const onSubmit = (values: ContributeFormValues) => {
     if (parseEther(values.amount) < (minContribution as bigint)) {
       toast.error(`Minimum contribution is ${formatEther(minContribution as bigint)} ETH`);
@@ -102,7 +104,12 @@ export default function CampaignDetailsPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-6">
           <div>
-            <h1 className="text-4xl font-bold mb-2">{title as string}</h1>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="text-4xl font-bold">{title as string}</h1>
+              <Badge variant={isFunded ? "success" : "info"}>
+                {isFunded ? "Funded" : "Active"}
+              </Badge>
+            </div>
             <p className="text-sm text-muted-foreground">Managed by: {manager as string}</p>
           </div>
 
@@ -152,11 +159,24 @@ export default function CampaignDetailsPage() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-4 border-t">
                 <div className="space-y-2">
                   <Label htmlFor="amount">Contribution Amount (ETH)</Label>
-                  <Input id="amount" {...register('amount')} placeholder="0.5" />
+                  <Input 
+                    id="amount" 
+                    {...register('amount')} 
+                    placeholder="0.5" 
+                    disabled={isPending || isConfirming || isFunded}
+                  />
                   {errors.amount && <p className="text-sm text-destructive">{errors.amount.message}</p>}
                 </div>
-                <Button type="submit" className="w-full" disabled={isPending || isConfirming}>
-                  {isPending || isConfirming ? 'Contributing...' : 'Back this project'}
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  disabled={isPending || isConfirming || isFunded}
+                >
+                  {isPending || isConfirming 
+                    ? 'Contributing...' 
+                    : isFunded 
+                      ? 'Goal Reached' 
+                      : 'Back this project'}
                 </Button>
               </form>
             </CardContent>

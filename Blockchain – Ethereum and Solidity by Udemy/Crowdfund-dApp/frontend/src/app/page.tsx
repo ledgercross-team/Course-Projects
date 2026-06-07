@@ -5,12 +5,15 @@ import { FACTORY_ADDRESS } from '@/constants';
 import { CAMPAIGN_FACTORY_ABI, CAMPAIGN_ABI } from '@/constants/abis';
 import { CampaignCard } from '@/components/campaign-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { hardhat } from 'wagmi/chains';
 
 export default function HomePage() {
   const { 
     data: deployedCampaigns, 
-    isLoading: isListLoading, 
+    isLoading: isListLoading,
+    isError: isListError,
+    error: listError,
   } = useReadContract({
     address: FACTORY_ADDRESS,
     abi: CAMPAIGN_FACTORY_ABI,
@@ -20,7 +23,9 @@ export default function HomePage() {
 
   const { 
     data: campaignSummaries, 
-    isLoading: isSummariesLoading, 
+    isLoading: isSummariesLoading,
+    isError: isSummariesError,
+    error: summariesError,
   } = useReadContracts({
     contracts: (deployedCampaigns ?? []).map((address) => ({
       address,
@@ -34,8 +39,22 @@ export default function HomePage() {
   });
 
   const isLoading = isListLoading || (!!deployedCampaigns && deployedCampaigns.length > 0 && isSummariesLoading);
+  const isError = isListError || isSummariesError;
 
-  if (isLoading) {
+  console.log('Homepage State:', {
+    factoryAddress: FACTORY_ADDRESS,
+    deployedCampaigns,
+    isListLoading,
+    isListError,
+    listError: listError?.message,
+    isSummariesLoading,
+    isSummariesError,
+    summariesError: summariesError?.message,
+    isLoading,
+    isError
+  });
+
+  if (isLoading && !isError) {
     return (
       <div className="space-y-8">
         <h1 className="text-3xl font-bold">Discover Campaigns</h1>
@@ -48,6 +67,25 @@ export default function HomePage() {
               <Skeleton className="h-4 w-full" />
             </div>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold">Discover Campaigns</h1>
+        <div className="bg-destructive/10 p-6 rounded-lg border border-destructive/20 text-destructive text-center">
+          <p className="font-semibold">Error loading campaigns</p>
+          <p className="text-sm opacity-80">{listError?.message || summariesError?.message}</p>
+          <Button 
+            variant="outline" 
+            className="mt-4"
+            onClick={() => window.location.reload()}
+          >
+            Try Again
+          </Button>
         </div>
       </div>
     );
@@ -66,7 +104,14 @@ export default function HomePage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {deployedCampaigns.map((address, index) => {
-            const summary = campaignSummaries?.[index]?.result;
+            const summaryResult = campaignSummaries?.[index];
+            const summary = summaryResult?.result;
+            
+            if (summaryResult?.status === 'failure') {
+              console.error(`Failed to load summary for campaign ${address}:`, summaryResult.error);
+              return null;
+            }
+
             if (!summary || !Array.isArray(summary)) return null;
             
             // summary: [minContribution, balance, requestsCount, approversCount, manager, title, description, imageUrl, fundingGoal]

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { formatEther } from "viem";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,12 +16,18 @@ interface CampaignCardProps {
 }
 
 export function CampaignCard({ address, title, description, imageUrl, fundingGoal, balance }: CampaignCardProps) {
-  const progress = Number(fundingGoal) > 0 ? (Number(balance) / Number(fundingGoal)) * 100 : 0;
+  const isFunded = balance >= fundingGoal;
+  const progress = Number(fundingGoal) > 0 ? Math.min((Number(balance) / Number(fundingGoal)) * 100, 100) : 0;
   const formattedRaised = formatEther(balance);
   const formattedGoal = formatEther(fundingGoal);
 
   return (
-    <Card className="overflow-hidden flex flex-col h-full">
+    <Card className="overflow-hidden flex flex-col h-full relative">
+      <div className="absolute top-2 right-2 z-10">
+        <Badge variant={isFunded ? "success" : "info"}>
+          {isFunded ? "Funded" : "Active"}
+        </Badge>
+      </div>
       <div className="relative h-48 w-full">
         <Image
           src={imageUrl || "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&q=80"}

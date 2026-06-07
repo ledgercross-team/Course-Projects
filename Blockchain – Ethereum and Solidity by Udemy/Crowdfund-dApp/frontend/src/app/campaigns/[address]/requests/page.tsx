@@ -1,6 +1,6 @@
 'use client';
 
-import { useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useReadContract, useReadContracts, useWriteContract, useWaitForTransactionReceipt, useAccount } from 'wagmi';
 import { CAMPAIGN_ABI } from '@/constants/abis';
 import { useParams } from 'next/navigation';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -42,8 +42,10 @@ export default function RequestsPage() {
     }
   });
 
-  const { writeContract, data: hash } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
+  const { writeContract, data: hash, error: writeError } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess, error: confirmError } = useWaitForTransactionReceipt({ hash });
+
+  const { address: userAddress } = useAccount();
 
   useEffect(() => {
     if (isSuccess) {
@@ -53,7 +55,20 @@ export default function RequestsPage() {
     }
   }, [isSuccess, refetchCount, refetchRequests]);
 
+  useEffect(() => {
+    const error = writeError || confirmError;
+    if (error) {
+      console.error('Finalize/Approve Error:', error);
+      toast.error(`Transaction failed: ${error.message}`);
+    }
+  }, [writeError, confirmError]);
+
   const onApprove = (index: number) => {
+    console.log('Approving request:', {
+      campaignAddress: address,
+      requestIndex: index,
+      userAddress,
+    });
     writeContract({
       address,
       abi: CAMPAIGN_ABI,
@@ -63,6 +78,11 @@ export default function RequestsPage() {
   };
 
   const onFinalize = (index: number) => {
+    console.log('Finalizing request:', {
+      campaignAddress: address,
+      requestIndex: index,
+      userAddress,
+    });
     writeContract({
       address,
       abi: CAMPAIGN_ABI,
@@ -70,6 +90,12 @@ export default function RequestsPage() {
       args: [BigInt(index)],
     });
   };
+
+  useEffect(() => {
+    if (hash) {
+      console.log('Transaction Hash:', hash);
+    }
+  }, [hash]);
 
   return (
     <div className="space-y-8">
