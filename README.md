@@ -4,40 +4,23 @@
 
 # Course Projects: Assignments & Capstone Submissions
 
-Welcome to the repository for all course-related submissions. Please follow the structure below to ensure your work is tracked and graded correctly.
-
 ---
 
-## 🚀 Submission Instructions
+### Ehsanul's Submissions Index
 
-To keep the `main` branch clean, everyone must follow this workflow:
+#### Blockchain_Coursera
 
-1. **Create a Branch:** Create a new branch named with your name.
-2. **Directory Structure:** Place your files in the appropriate folder using the following format:
-   - `[Course Name]/Assignments/[Assignment Name]`
-   - `[Course Name]/Capstone/[Project Name]`
-3. **Push** Push your branch to the remote repository.
+| Submission Name  | Link to Files                                        |
+| :--------------- | :--------------------------------------------------- |
+| C2_1_Auction.sol | [View Files](./Blockchain_Coursera/C2_1_Auction.sol) |
+| C2_2_Auction.sol | [View Files](./Blockchain_Coursera/C2_2_Auction.sol) |
 
----
+#### Blockchain_Coursera_Course3
 
-## 📝 Personal Branch README Template
-*Copy this into the README.md on your personal branch to help quickly navigate your work:*
-
-### [Your Name]'s Submissions Index
-| Submission Name | Course | Link to Files |
-| :--- | :--- | :--- |
-| Assignment 1 | Blockchain | [View Files](./Blockchain/Assignments/Assignment-1/) |
-| Final Capstone | Full Stack | [View Project](./FullStack/Capstone/Project-Alpha/) |
-
-*Links provided here are for demo purposes only (Clicking on them will give 404).*
+| Submission Name | Link to Files                                       |
+| :-------------- | :-------------------------------------------------- |
+| Auction.sol     | [View Files](./Blockchain_Coursera_Course3/Auction.sol) |
+| test.js         | [View Files](./Blockchain_Coursera_Course3/test.js)     |
+| README          | [View Files](./Blockchain_Coursera_Course3/README.md)   |
 
 ---
-
-## 🛠️ Quick Git Commands
-
-If you are new to branching, use these commands in your terminal:
-
-* **Create your branch:** `git checkout -b your-name`
-* **Add your changes:** `git add .`
-* **Commit your work:** `git commit -m "Submit Assignment 1 - [Course Name]"`
-* **Push to GitHub:** `git push origin your-name`
