@@ -30,4 +30,8 @@ urlpatterns = [
         'api/bloodbanks/',
         include('bloodbanks.urls')
     ),
+    path(
+    'api/inventory/',
+    include('inventory.urls')
+),
 ]
