@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import ReservationForm from "../components/ReservationForm";
 import ReservationModal
 from "../components/ReservationModal";
+import ReservationModal from "../components/ReservationModal";
 
 function Home() {
   const [banks, setBanks] = useState([]);

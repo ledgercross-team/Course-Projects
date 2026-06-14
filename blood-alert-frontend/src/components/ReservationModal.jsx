@@ -30,10 +30,15 @@ function ReservationModal({ bankId }) {
       );
 
       alert(
-        "Reservation Created Successfully"
-      );
+  "✅ Reservation Created Successfully"
+);
 
-      setShow(false);
+setPatientName("");
+setBloodGroup("");
+setQuantity(1);
+setPhone("");
+
+setShow(false);
     } catch (error) {
       console.log(error);
       alert("Reservation Failed");
