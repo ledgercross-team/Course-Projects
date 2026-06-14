@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'donors',
     'notifications',
     'corsheaders',
+    'reservations',
 ]
 
 # Middleware
