@@ -1,18 +1,16 @@
 from pathlib import Path
 
-# Build paths inside the project
+# Base Directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-change-this-in-production'
+# Security
+SECRET_KEY = 'django-insecure-change-this-key'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
-
+# Installed Apps
 INSTALLED_APPS = [
     # Django Apps
     'django.contrib.admin',
@@ -22,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party Apps
+    # Third Party Apps
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
@@ -36,6 +34,7 @@ INSTALLED_APPS = [
     'notifications',
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -46,8 +45,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL Configuration
 ROOT_URLCONF = 'config.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -63,10 +64,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database
-
+# Database (SQLite)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,8 +75,7 @@ DATABASES = {
     }
 }
 
-# Password validation
-
+# Password Validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -92,7 +92,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Dhaka'
@@ -101,23 +100,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files
-
+# Static Files
 STATIC_URL = 'static/'
 
-# Default primary key field type
-
+# Default Primary Key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
-
 AUTH_USER_MODEL = 'accounts.User'
 
 # Django REST Framework
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
 
     'DEFAULT_FILTER_BACKENDS': [
