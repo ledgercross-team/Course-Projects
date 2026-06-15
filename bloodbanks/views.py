@@ -1,19 +1,24 @@
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from geopy.distance import geodesic
 from rest_framework.permissions import AllowAny
+from geopy.distance import geodesic
+
 from .models import BloodBank
 from .serializers import BloodBankSerializer
 
 
 class BloodBankListAPIView(generics.ListAPIView):
 
+    permission_classes = [AllowAny]
+
     queryset = BloodBank.objects.all()
     serializer_class = BloodBankSerializer
 
 
 class NearbyBloodBankAPIView(APIView):
+
+    permission_classes = [AllowAny]
 
     def get(self, request):
 

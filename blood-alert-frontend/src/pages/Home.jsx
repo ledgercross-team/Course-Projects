@@ -58,32 +58,51 @@ function Home() {
 
             <p>📍 {bank.address}</p>
             <p>📞 {bank.phone}</p>
+
             <h4>Available Blood</h4>
 
-{bank.inventory?.map((item, index) => (
-  <div key={index}>
-    <p>
-      🩸 {item.blood_group} : {item.units_available} Units
-    </p>
+            {bank.inventory?.map((item, index) => (
+              <div key={index}>
+                <p>
+                  🩸 {item.blood_group} : {item.units_available} Units
+                </p>
 
-    {item.is_critical && (
-      <span
-        style={{
-          background: "#ff4d4f",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "5px",
-          fontSize: "12px",
-          fontWeight: "bold",
-        }}
-      >
-        ⚠ LOW STOCK
-      </span>
-    )}
-  </div>
-))}
+                {item.is_critical && (
+                  <span
+                    style={{
+                      background: "#ff4d4f",
+                      color: "white",
+                      padding: "4px 8px",
+                      borderRadius: "5px",
+                      fontSize: "12px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    ⚠ LOW STOCK
+                  </span>
+                )}
+              </div>
+            ))}
 
-            
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginTop: "15px",
+              }}
+            >
+              <a
+                href={`https://www.google.com/maps?q=${bank.latitude},${bank.longitude}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{ flex: 1 }}
+              >
+                <button className="reserve-btn">
+                  📍 View on Map
+                </button>
+              </a>
+            </div>
+
             <ReservationModal bankId={bank.id} />
           </div>
         ))}

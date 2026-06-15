@@ -1,67 +1,286 @@
-body {
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f6fa;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.navbar {
-  background: crimson;
+body {
+  background: #1f1f24;
   color: white;
-  padding: 15px 40px;
-
-  display: flex;
-  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.links a {
-  color: white;
-  margin-left: 20px;
+a {
   text-decoration: none;
 }
 
+/* Navbar */
+
+.navbar {
+  background: linear-gradient(
+    90deg,
+    #b8002f,
+    #d9043d
+  );
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 40px;
+
+  box-shadow: 0 4px 12px
+    rgba(0, 0, 0, 0.3);
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ffd6de;
+}
+
+.logout-btn {
+  background: white;
+  color: #b8002f;
+
+  border: none;
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #ffe5ea;
+}
+
+/* Hero */
+
 .hero {
   text-align: center;
-  padding: 60px;
+  padding: 80px 20px;
 }
 
 .hero h1 {
-  font-size: 48px;
+  font-size: 70px;
+  margin-bottom: 20px;
 }
+
+.hero p {
+  font-size: 24px;
+  color: #d8d8d8;
+}
+
+/* Container */
 
 .container {
   width: 90%;
   margin: auto;
 
   display: grid;
-
   grid-template-columns:
-    repeat(auto-fit, minmax(250px, 1fr));
+    repeat(auto-fit, minmax(320px, 1fr));
 
-  gap: 20px;
+  gap: 25px;
+
+  padding-bottom: 50px;
 }
+
+/* Card */
 
 .card {
-  background: white;
+  background: #26262c;
 
-  padding: 20px;
+  border: 1px solid #3a3a42;
 
-  border-radius: 10px;
+  border-radius: 15px;
 
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  padding: 25px;
+
+  transition: 0.3s;
 }
 
-.card button {
+.card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 10px 20px
+    rgba(0, 0, 0, 0.3);
+}
+
+.card h2,
+.card h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.card p {
+  margin: 8px 0;
+  font-size: 20px;
+}
+
+/* Blood Inventory */
+
+.inventory-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.inventory-item {
+  margin: 8px 0;
+}
+
+/* Buttons */
+
+button {
   width: 100%;
-
-  background: crimson;
-
-  color: white;
+  padding: 12px;
 
   border: none;
-
-  padding: 10px;
-
-  border-radius: 5px;
+  border-radius: 8px;
 
   cursor: pointer;
+
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.reserve-btn {
+  background: #d9043d;
+  color: white;
+  margin-top: 15px;
+}
+
+.reserve-btn:hover {
+  background: #ff205d;
+}
+
+/* Forms */
+
+form {
+  margin-top: 15px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+input,
+select {
+  width: 100%;
+
+  padding: 12px;
+
+  border-radius: 8px;
+  border: 1px solid #444;
+
+  background: #2f2f36;
+  color: white;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+/* Login/Register */
+
+.auth-container {
+  width: 400px;
+
+  margin: 80px auto;
+
+  background: #26262c;
+
+  padding: 30px;
+
+  border-radius: 15px;
+
+  border: 1px solid #3a3a42;
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth-btn {
+  background: #d9043d;
+  color: white;
+}
+
+.auth-btn:hover {
+  background: #ff205d;
+}
+
+/* Status */
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.approved {
+  color: limegreen;
+  font-weight: bold;
+}
+
+/* Alerts */
+
+.alert-card {
+  background: #3b1f1f;
+
+  border: 1px solid #ff4d4d;
+
+  border-radius: 15px;
+
+  padding: 20px;
+}
+
+.alert-card h3 {
+  color: #ff4d4d;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .hero h1 {
+    font-size: 45px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .auth-container {
+    width: 90%;
+  }
 }

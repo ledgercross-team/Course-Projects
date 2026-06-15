@@ -63,7 +63,7 @@ function Reservations() {
               <p>
                 📦 Units:
                 {" "}
-                {item.units}
+                {item.quantity}
               </p>
 
               <p>

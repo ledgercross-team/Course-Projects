@@ -11,29 +11,29 @@ function ReservationModal({ bankId }) {
   const [bloodGroup, setBloodGroup] =
     useState("O+");
 
-  const [units, setUnits] =
+  const [quantity, setQuantity] =
     useState(1);
 
-  const createReservation = async () => {
-    const token =
-      localStorage.getItem("access");
-
-    if (!token) {
-      alert("Please login first");
-      window.location.href =
-        "#/login";
-      return;
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     try {
+      const token =
+        localStorage.getItem("access");
+
       await api.post(
         "/reservations/create/",
         {
-          blood_bank: bankId,
           patient_name: patientName,
           phone: phone,
           blood_group: bloodGroup,
-          units: Number(units),
+          quantity: Number(quantity),
+          blood_bank: bankId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -44,24 +44,33 @@ function ReservationModal({ bankId }) {
       setPatientName("");
       setPhone("");
       setBloodGroup("O+");
-      setUnits(1);
+      setQuantity(1);
     } catch (error) {
       console.log(error);
-      alert("Reservation Failed");
+
+      console.log(
+        "Backend Error:",
+        error.response?.data
+      );
+
+      alert(
+        JSON.stringify(
+          error.response?.data
+        )
+      );
     }
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Patient Name"
         value={patientName}
         onChange={(e) =>
-          setPatientName(
-            e.target.value
-          )
+          setPatientName(e.target.value)
         }
+        required
       />
 
       <input
@@ -71,14 +80,13 @@ function ReservationModal({ bankId }) {
         onChange={(e) =>
           setPhone(e.target.value)
         }
+        required
       />
 
       <select
         value={bloodGroup}
         onChange={(e) =>
-          setBloodGroup(
-            e.target.value
-          )
+          setBloodGroup(e.target.value)
         }
       >
         <option value="A+">A+</option>
@@ -94,22 +102,21 @@ function ReservationModal({ bankId }) {
       <input
         type="number"
         min="1"
-        value={units}
+        placeholder="Units"
+        value={quantity}
         onChange={(e) =>
-          setUnits(
-            e.target.value
-          )
+          setQuantity(e.target.value)
         }
+        required
       />
 
       <button
-        onClick={
-          createReservation
-        }
+        type="submit"
+        className="reserve-btn"
       >
         Reserve Blood
       </button>
-    </div>
+    </form>
   );
 }
 

@@ -2,19 +2,17 @@ from django.urls import path
 
 from .views import (
     ReservationCreateAPIView,
-    ReservationListAPIView,
+    ReservationListAPIView
 )
 
 urlpatterns = [
     path(
         "",
-        ReservationListAPIView.as_view(),
-        name="reservation-list"
+        ReservationListAPIView.as_view()
     ),
 
     path(
         "create/",
-        ReservationCreateAPIView.as_view(),
-        name="reservation-create"
+        ReservationCreateAPIView.as_view()
     ),
 ]
