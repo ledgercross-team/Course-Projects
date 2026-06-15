@@ -16,11 +16,24 @@ function Navbar() {
           Reservations
         </Link>
 
+        
+
         {!token ? (
           <>
+
+           <Link to="/profile">
+                  Profile
+               </Link>
+
+               <Link to="/alerts">
+                  Alerts
+               </Link>
+
             <Link to="/login">
               Login
             </Link>
+
+             
 
             <Link to="/register">
               Register

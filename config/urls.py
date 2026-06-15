@@ -30,6 +30,11 @@ urlpatterns = [
     ),
 
     path(
+    "api/alerts/",
+    include("alerts.urls")
+),
+
+    path(
         'api/token/',
         TokenObtainPairView.as_view(),
         name='token_obtain_pair'

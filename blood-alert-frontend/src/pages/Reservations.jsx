@@ -10,8 +10,15 @@ function Reservations() {
     useState(true);
 
   useEffect(() => {
+    const token =
+      localStorage.getItem("access");
+
     api
-      .get("/reservations/")
+      .get("/reservations/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setReservations(response.data);
         setLoading(false);
@@ -55,26 +62,22 @@ function Reservations() {
               </h3>
 
               <p>
-                🩸 Blood Group:
-                {" "}
+                🩸 Blood Group:{" "}
                 {item.blood_group}
               </p>
 
               <p>
-                📦 Units:
-                {" "}
+                📦 Units:{" "}
                 {item.quantity}
               </p>
 
               <p>
-                📞 Phone:
-                {" "}
+                📞 Phone:{" "}
                 {item.phone}
               </p>
 
               <p>
-                Status:
-                {" "}
+                Status:{" "}
                 {item.status}
               </p>
 
