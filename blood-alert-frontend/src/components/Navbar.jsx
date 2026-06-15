@@ -1,12 +1,42 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
+  const token = localStorage.getItem("access");
+
   return (
     <nav className="navbar">
-      <h2>🩸 Blood Alert</h2>
+      <div className="logo">
+        🩸 Blood Alert
+      </div>
 
-      <div className="links">
-        <a href="#">Home</a>
-        <a href="#">Blood Banks</a>
-        <a href="#">Alerts</a>
+      <div className="nav-links">
+        <Link to="/">Home</Link>
+
+        <Link to="/reservations">
+          Reservations
+        </Link>
+
+        {!token ? (
+          <>
+            <Link to="/login">
+              Login
+            </Link>
+
+            <Link to="/register">
+              Register
+            </Link>
+          </>
+        ) : (
+          <button
+            className="logout-btn"
+            onClick={() => {
+              localStorage.clear();
+              window.location.href = "#/login";
+            }}
+          >
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );

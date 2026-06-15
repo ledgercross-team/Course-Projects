@@ -1,36 +1,12 @@
-import { useEffect, useState } from "react";
+ import { useEffect, useState } from "react";
 import api from "../services/api";
 import Navbar from "../components/Navbar";
-import ReservationForm from "../components/ReservationForm";
-import ReservationModal
-from "../components/ReservationModal";
 import ReservationModal from "../components/ReservationModal";
 
 function Home() {
   const [banks, setBanks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  // 👇 এখানে add করো
-  const reserveBlood = async (bloodBankId) => {
-    try {
-      await api.post(
-        "/reservations/create/",
-        {
-          blood_bank: bloodBankId,
-          patient_name: "Demo Patient",
-          blood_group: "O+",
-          quantity: 2,
-          phone: "01700000000",
-        }
-      );
-
-      alert("Reservation Created Successfully");
-    } catch (error) {
-      console.log(error);
-      alert("Reservation Failed");
-    }
-  };
 
   useEffect(() => {
     api
@@ -46,13 +22,33 @@ function Home() {
       });
   }, []);
 
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <h2>Loading...</h2>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <h2>{error}</h2>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
 
       <div className="hero">
         <h1>Find Blood Fast</h1>
-        <p>Search nearby blood banks and reserve blood units.</p>
+        <p>
+          Search nearby blood banks and reserve blood units.
+        </p>
       </div>
 
       <div className="container">
@@ -62,11 +58,33 @@ function Home() {
 
             <p>📍 {bank.address}</p>
             <p>📞 {bank.phone}</p>
+            <h4>Available Blood</h4>
 
-            {/* 👇 Button replace করো */}
-            <ReservationModal
-  bankId={bank.id}
-/>
+{bank.inventory?.map((item, index) => (
+  <div key={index}>
+    <p>
+      🩸 {item.blood_group} : {item.units_available} Units
+    </p>
+
+    {item.is_critical && (
+      <span
+        style={{
+          background: "#ff4d4f",
+          color: "white",
+          padding: "4px 8px",
+          borderRadius: "5px",
+          fontSize: "12px",
+          fontWeight: "bold",
+        }}
+      >
+        ⚠ LOW STOCK
+      </span>
+    )}
+  </div>
+))}
+
+            
+            <ReservationModal bankId={bank.id} />
           </div>
         ))}
       </div>

@@ -2,43 +2,49 @@ import { useState } from "react";
 import api from "../services/api";
 
 function ReservationModal({ bankId }) {
-  const [show, setShow] = useState(false);
-
   const [patientName, setPatientName] =
     useState("");
-
-  const [bloodGroup, setBloodGroup] =
-    useState("");
-
-  const [quantity, setQuantity] =
-    useState(1);
 
   const [phone, setPhone] =
     useState("");
 
-  const submitReservation = async () => {
+  const [bloodGroup, setBloodGroup] =
+    useState("O+");
+
+  const [units, setUnits] =
+    useState(1);
+
+  const createReservation = async () => {
+    const token =
+      localStorage.getItem("access");
+
+    if (!token) {
+      alert("Please login first");
+      window.location.href =
+        "#/login";
+      return;
+    }
+
     try {
       await api.post(
         "/reservations/create/",
         {
           blood_bank: bankId,
           patient_name: patientName,
+          phone: phone,
           blood_group: bloodGroup,
-          quantity,
-          phone,
+          units: Number(units),
         }
       );
 
       alert(
-  "✅ Reservation Created Successfully"
-);
+        "Reservation Created Successfully"
+      );
 
-setPatientName("");
-setBloodGroup("");
-setQuantity(1);
-setPhone("");
-
-setShow(false);
+      setPatientName("");
+      setPhone("");
+      setBloodGroup("O+");
+      setUnits(1);
     } catch (error) {
       console.log(error);
       alert("Reservation Failed");
@@ -46,93 +52,64 @@ setShow(false);
   };
 
   return (
-    <>
+    <div>
+      <input
+        type="text"
+        placeholder="Patient Name"
+        value={patientName}
+        onChange={(e) =>
+          setPatientName(
+            e.target.value
+          )
+        }
+      />
+
+      <input
+        type="text"
+        placeholder="Phone Number"
+        value={phone}
+        onChange={(e) =>
+          setPhone(e.target.value)
+        }
+      />
+
+      <select
+        value={bloodGroup}
+        onChange={(e) =>
+          setBloodGroup(
+            e.target.value
+          )
+        }
+      >
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+      </select>
+
+      <input
+        type="number"
+        min="1"
+        value={units}
+        onChange={(e) =>
+          setUnits(
+            e.target.value
+          )
+        }
+      />
+
       <button
-        onClick={() => setShow(true)}
+        onClick={
+          createReservation
+        }
       >
         Reserve Blood
       </button>
-
-      {show && (
-        <div className="modal">
-          <div className="modal-content">
-
-            <h2>
-              Reserve Blood
-            </h2>
-
-            <input
-              placeholder="Patient Name"
-              value={patientName}
-              onChange={(e) =>
-                setPatientName(
-                  e.target.value
-                )
-              }
-            />
-
-            <select
-              value={bloodGroup}
-              onChange={(e) =>
-                setBloodGroup(
-                  e.target.value
-                )
-              }
-            >
-              <option value="">
-                Blood Group
-              </option>
-
-              <option>O+</option>
-              <option>O-</option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>AB+</option>
-              <option>AB-</option>
-            </select>
-
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) =>
-                setQuantity(
-                  e.target.value
-                )
-              }
-            />
-
-            <input
-              placeholder="Phone"
-              value={phone}
-              onChange={(e) =>
-                setPhone(
-                  e.target.value
-                )
-              }
-            />
-
-            <button
-              onClick={
-                submitReservation
-              }
-            >
-              Confirm
-            </button>
-
-            <button
-              onClick={() =>
-                setShow(false)
-              }
-            >
-              Close
-            </button>
-
-          </div>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 

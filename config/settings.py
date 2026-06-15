@@ -21,8 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third Party Apps
-    'rest_framework',
-    'rest_framework.authtoken',
+
+    
     'django_filters',
 
     # Local Apps
@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'notifications',
     'corsheaders',
     'reservations',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 # Middleware
