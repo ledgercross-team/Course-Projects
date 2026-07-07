@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #15191d;
+  --card: #1e2428;
+  --border: #252c33;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: #dee3e7;
+  /* Polymarket's exact Inter OpenType feature set — sharper digits & letterforms */
+  font-feature-settings: "liga" 1, "calt" 1, "cv01" 1, "cv02" 1, "cv03" 1, "cv04" 1, "cv11" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-y: scroll;
+}
+
+/* Tabular numerals for all live prices / stats so digits don't jitter as they tick */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "cv01" 1, "cv02" 1;
+}
+
+/* ---- Scrollbars ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2f3841 transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #2f3841;
+  border-radius: 999px;
+  border: 3px solid var(--bg);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #3c4750;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: rgba(20, 82, 240, 0.35);
+  color: #fff;
+}
+
+/* Skeleton shimmer */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: #1e2428;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+/* Hide RainbowKit's default heavy styles clashes — keep it compact */
+[data-rk] {
+  --rk-radii-connectButton: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
