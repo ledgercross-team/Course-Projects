@@ -31,11 +31,28 @@ function useTx() {
 
 export function TradePanel(props: TradePanelProps) {
   const { market } = props;
-  const closed = Date.now() / 1000 >= market.closeTime;
+  const closed = useClosed(market.closeTime);
 
   if (market.resolved) return <SettledPanel {...props} />;
   if (closed) return <AwaitingPanel {...props} />;
   return <BuyPanel market={market} />;
+}
+
+/** True once wall clock passes closeTime — with a timer so the panel flips without a reload. */
+function useClosed(closeTime: number): boolean {
+  const [closed, setClosed] = useState(() => Date.now() / 1000 >= closeTime);
+  useEffect(() => {
+    const ms = closeTime * 1000 - Date.now();
+    if (ms <= 0) {
+      setClosed(true);
+      return;
+    }
+    // setTimeout overflows past ~24.8 days; markets that far out can't close during one mount anyway
+    if (ms > 2 ** 31 - 1) return;
+    const t = setTimeout(() => setClosed(true), ms + 500);
+    return () => clearTimeout(t);
+  }, [closeTime]);
+  return closed;
 }
 
 function BuyPanel({ market }: { market: MarketData }) {
