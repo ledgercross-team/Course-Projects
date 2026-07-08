@@ -1,0 +1,27 @@
+{
+  "name": "securechain-will-backend",
+  "version": "1.0.0",
+  "description": "Backend API for SecureChain Will - a blockchain-based digital will verification prototype",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "check": "node scripts/check-syntax.js",
+    "test": "npm run check"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.1",
+    "express": "^4.19.2",
+    "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}

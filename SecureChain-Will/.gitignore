@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Env files
+.env
+.env.local
+*.local.json
+
+# Local MongoDB runtime
+mongodb-portable/
+mongodb-windows-x86_64-*.zip
+
+# Foundry
+smart-contract/out/
+smart-contract/cache/
+smart-contract/lib/
+
+# Backend uploads (runtime only)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Frontend build
+frontend/dist/
+
+# OS / editor
+.DS_Store
+*.log
