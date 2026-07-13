@@ -6,13 +6,20 @@
 
 ---
 
-## 📝 Personal Branch README Template
+## Farhan Zarif — Submissions Index
 
-
-### [Farhan Zarif] Submissions Index
-| Submission Name | Course | Link to Files |
-| :--- | :--- | :--- |
-| Final Capstone | Full Stack | [View Project](IBM fullstack using javascript/Capstone/NexusHealth) |
+| Submission Name | Course | Project | Link to Files |
+| :--- | :--- | :--- | :--- |
+| Final Capstone | Full Stack (IBM Full Stack using JavaScript) | NexusHealth | [View Project](./NexusHealth) |
+| Final Capstone | Blockchain | DCA Vault (`blockchain_project_ether`) | [View Project](./blockchain_project_ether) |
 
 ---
 
+### Project summaries
+
+| Project | What it is |
+| :--- | :--- |
+| **[NexusHealth](./NexusHealth)** | Full-stack healthcare app (React frontend + Node/Express backend) |
+| **[blockchain_project_ether](./blockchain_project_ether)** | On-chain DCA Vault — Solidity/Foundry + React UI (Sepolia) |
+
+---
